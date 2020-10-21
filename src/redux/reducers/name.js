@@ -1,11 +1,19 @@
 import { ACTION_SET_NAME } from '../actionTypes';
 
 const initialState = {
-    name: 'Guster',
-    activity: 'napping',
+    cats: {
+        1001: {
+            name: 'Beans',
+            activity: 'meowing',
+        },
+        1002: {
+            name: 'Bandit',
+            activity: 'eating',
+        },
+    },
 };
 
-const nameReducer = (state = initialState, action) => {
+const catReducer = (state = initialState, action) => {
     switch (action.type) {
         case ACTION_SET_NAME: {
             return {
@@ -18,4 +26,4 @@ const nameReducer = (state = initialState, action) => {
     }
 };
 
-export default nameReducer;
+export default catReducer;
