@@ -1,20 +1,69 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { connect } from 'react-redux';
-import { eat, play, nap } from '../redux/actions';
+import { addCat } from '../redux/actions';
 
-const Activity = ({ activity, eat, play, nap }) => (
+const Activity = ({cats, addCat}) => {
+    const catArray = Object.keys(cats);
+    const [catName, setCatName] = useState("");
+    const [activity, setActivity] = useState("");
+
+    const _handleName = (name) => {
+        setCatName(name);
+    };
+
+    const _handleActivity = (e) => {
+        setActivity(e.target.value);
+    };
+
+    const _handleSubmit = (e) => {
+        e.preventDefault();
+        addCat({ name: catName, activity });
+        setCatName("");
+        setActivity("");
+    };
+    
+    return (
     <>
-        <h1>What is the cat doing now???</h1>
-        <p>The cat is {activity}</p>
-        <button type="button" onClick={() => eat()}>Eating</button>
-        <button type="button" onClick={() => play()}>Playing</button>
-        <button type="button" onClick={() => nap()}>Napping</button>
+
+    <form onSubmit={(e) => _handleSubmit(e)}>
+        <input
+            type="text"
+            placeholder="Name"
+            onChange={(e) => _handleName(e.target.value)}
+            value={catName}
+        />
+        is
+        <select
+            name="activity"
+            value={activity}
+            onChange={(e) => _handleActivity(e)}
+        >
+            <option defaultValue>Choose an Activity</option>
+            <option value="eating">Eating</option>
+            <option value="napping">Napping</option>
+            <option value="playing">Playing</option>
+        </select>
+        <button type="submit">Submit</button>
+    </form>
+
+
+    <ul>
+        {catArray.map((cat) => {
+            return (
+            <li key={cat}>
+            {cats[cat].name} is {cats[cat].activity}
+            </li>
+        )})}
+        
+    </ul>
     </>
-);
+    )
+};
 
 const mapStateToProps = state => {
-    const { activity } = state;
-    return activity;
+    const { cats } = state;
+    console.log(cats);
+    return cats;
 }
 
-export default connect(mapStateToProps, {eat, play, nap})(Activity);
+export default connect(mapStateToProps, {addCat})(Activity);
