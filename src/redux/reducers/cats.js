@@ -34,7 +34,19 @@ const catReducer = (state = initialState, action) => {
             };
         }
         case ACTION_ADD_CAT: {
-            return {};
+            const id =
+                Math.random().toString(36).substring(2, 15) +
+                Math.random().toString(36).substring(2, 15);
+            const { name, activity } = action.payload;
+            return {
+                cats: {
+                    ...state.cats,
+                    [id]: {
+                        name,
+                        activity,
+                    },
+                },
+            };
         }
         default:
             return state;
