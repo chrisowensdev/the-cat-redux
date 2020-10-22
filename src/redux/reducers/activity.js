@@ -1,9 +1,4 @@
-import {
-    ACTION_NAP,
-    ACTION_EAT,
-    ACTION_PLAY,
-    ACTION_SET_NAME,
-} from '../actionTypes';
+import { ACTION_SET_NAME } from '../actionTypes';
 
 const initialState = {
     name: 'Guster',

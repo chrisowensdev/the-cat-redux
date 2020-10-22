@@ -4,23 +4,30 @@ import {
     ACTION_ADD_CAT,
 } from './actionTypes';
 
-export const setName = (newName) => {
+export const setName = (name) => {
     return {
         type: ACTION_SET_NAME,
-        payload: newName,
+        payload: {
+            name,
+        },
     };
 };
 
-export const setActivity = (activity) => {
+export const setActivity = ({ id, activity }) => {
     return {
         type: ACTION_SET_ACTIVITY,
-        payload: activity,
+        payload: {
+            id: activity,
+        },
     };
 };
 
-export const addCat = (cat) => {
+export const addCat = ({ name, activity }) => {
     return {
         type: ACTION_ADD_CAT,
-        payload: {},
+        payload: {
+            name,
+            activity,
+        },
     };
 };

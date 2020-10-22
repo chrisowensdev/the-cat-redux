@@ -1,26 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { eat, play, nap } from '../redux/actions';
 
-import Input from './Input';
-
-const Activity = ({ activity, name, eat, play, nap }) => (
-
-    <>
-        <h1>What is the cat doing now???</h1>
-        <p>{name} cat is {activity}</p>
-        <button type="button" onClick={() => eat()}>Eating</button>
-        <button type="button" onClick={() => play()}>Playing</button>
-        <button type="button" onClick={() => nap()}>Napping</button>
-        <Input />
+const Activity = ({cats}) => {
+    const catArray = Object.keys(cats);
+    return (
+    <ul>
+        {catArray.map((cat, index) => {
+            return (
+            <li key={cat}>
+            {cats[cat].name} is {cats[cat].activity}
+            </li>
+        )})}
         
-    </>
-);
+    </ul>)
+};
 
 const mapStateToProps = state => {
-    const { name, activity } = state.activity;
-    console.log(state)
-    return {name, activity};
+    const { cats } = state;
+    return cats;
 }
 
-export default connect(mapStateToProps, {eat, play, nap})(Activity);
+export default connect(mapStateToProps, null)(Activity);
